@@ -1,4 +1,4 @@
-# :sunny: :umbrella: Travel Boogaloo :cloud: :snowflake:
+# :airplane: :boat:  Travel Boogaloo :bullettrain_side: :rocket:
 #TravelBoogaloo is the premier RCB app to store users travel memories. Users will have the privilege of adding the places they’ve been, the pictures they’ve taken, and experiences they never want to forget into a secure, user-friendly web app!
 
 
@@ -11,24 +11,25 @@
 
 ### Wireframes
 Wireframes of our initial prototype are available at: 
-Login page simple - https://wireframe.cc/v2NBdX
-Travel Albums simple https://wireframe.cc/CIxtfb
-Add Album - simple https://wireframe.cc/DUc1OS 
-Trip Details simple https://wireframe.cc/20Krgk
+1. Login page simple - https://wireframe.cc/v2NBdX
+2. Travel Albums simple https://wireframe.cc/CIxtfb
+3. Add Album - simple https://wireframe.cc/DUc1OS 
+4. Trip Details simple https://wireframe.cc/20Krgk
 
 ### APIs to be Used
-Picasa Web Albums Data API - https://developers.google.com/picasa-web/
-Google Maps API - https://developers.google.com/maps/
-Google Identity Platform - https://developers.google.com/identity/choose-auth 
+1. Picasa Web Albums Data API - https://developers.google.com/picasa-web/
+2. Google Maps API - https://developers.google.com/maps/
+3. Google Identity Platform - https://developers.google.com/identity/choose-auth 
 
 ### Initial Task Breakdown
-Login page
-Travel Albums Landing Page
-Add Album Form
-Trip Details Landing Page
-Map of locations visited
-Thumbnail of photos
-Comments/Feedback
+1. Login page - Tim
+  1. User Authenication - Tim
+2. Travel Albums Landing Page - Divya
+  1. Add Album Form - Divya
+3. Trip Details Landing Page - Chirag
+  1. Map of locations visited - Chirag
+  2. Thumbnail of photos - Chirag
+  3. Comments/Feedback - whoever finishes first
 
 
 
