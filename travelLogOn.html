@@ -17,15 +17,15 @@
 <div class="container" id="new user" class="col-md-5">
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account">	
-	<div class="col-md-5"> Create passwork</div> 
-	<input type="text" id="newUserPasswordInput" class="form-control" placeholder="Password">
+	<div class="col-md-5"> Create password</div> 
+	<input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password">
 	<button id="newUserSubmit" class="btn btn-danger" type="button">Submit New User</button> 
 </div>
 <div class="container" id="userLogOn" class="col-md-5">
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
 	<div class="col-md-5">Password</div> 
-	<input type="text" id="userPasswordInput" class="form-control" placeholder="Password">
+	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
 	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
 </div>
 
@@ -65,9 +65,9 @@ if (log == true) {
 }
 	
 //if false, reports an error to the user - change this to  a modal not an alert	
-		else(alert("email must be gmail account"))
-			//empty the input -------THIS IS NOT WORKING :(
-			$("#newUserGmailInput").empty();
+	else(alert("email must be gmail account"))
+	//empty the input -------THIS IS NOT WORKING :(
+	$("#newUserGmailInput").empty();
 		
 });
 
@@ -82,7 +82,7 @@ $("#userSubmit").on("click", function(){
 	});
 });
 
-
+//NEED TO CREATE A SIGNOUT PAGE 
 firebase.auth().signOut().then(function() {
   // Sign-out successful.
 }).catch(function(error) {
@@ -90,47 +90,6 @@ firebase.auth().signOut().then(function() {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var dbNumber = $("#userNumberInput").val().trim();
-// var ref = database.ref();
-// //pull the database object with a user number equal to the inputed user number
-// ref.equalTo(dbNumber).on("child_added", function(snapshot) {
-// console.log(snapshot.key);
-// console.log("IT WORKS!");
-// });
-
-// database.ref().on("child_added", function(childSnapshot) {
-// var dbUser = childSnapshot.val();
-// var dbNumber = $("#userNumberInput").val().trim();
-// var dbEmail = $("#userGmailInput").val().trim();
-// 		console.log(dbUser.userGmail);
-// 		if(dbUser.userNumber == dbNumber && dbUser.userGmail == ){
-// 			console.log("LOGIN SUCCESSFUL");
-// 			//THIS IS WHERE THE HTML WILL BE CHANGED TO THE MAIN USER PAGE 
-// 		}
-// 		else(){
-// 			console.log("LOGIN ERROR");
-// 		}
-// });
-//FOR OLD USER RETURN CHECK TO SEE IF THE USER NUMBER TIED TO THE USER GMAIL ACCOUNT MATCHES, IF SO LOGIN IF NOT REPORT ERROR
-
-//SAVE THE GMAIL ACCOUNT FOR EACH USER, THIS WILL ALLOW US TO USE IT FOR OTHER GOOGLE APIS
 
 });
 </script>
