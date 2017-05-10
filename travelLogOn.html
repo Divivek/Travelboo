@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!-- Jquery -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<!--   Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <!--  FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<head>
+	<title>Login Page</title>
+</head>
+<body>
+	<div id="pageTitle"><h1>Boogaloo Travel Journal</h1></div>
+<div class="container" id="new user" class="col-md-5">
+	<div class="col-md-5"> Gmail Account</div> 
+	<input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account">	
+	<button id="newUserSubmit" class="btn btn-danger" type="button">Submit New User</button> 
+</div>
+<div class="container" id="userLogOn" class="col-md-5">
+	<div class="col-md-5"> Gmail Account</div> 
+	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
+	<div class="col-md-5">Journal User Number</div> 
+	<input type="text" id="userNumberInput" class="form-control" placeholder="User Number">
+	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+var userNumber = 1;	
+//FIREBASE CONFIG
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDQeAXWZpnytGGVtlyNngDlMoAf-PRiCKk",
+    authDomain: "userlogs-a1164.firebaseapp.com",
+    databaseURL: "https://userlogs-a1164.firebaseio.com",
+    projectId: "userlogs-a1164",
+    storageBucket: "userlogs-a1164.appspot.com",
+    messagingSenderId: "621543108481",
+}
+firebase.initializeApp(config);
+var database = firebase.database();
+//CREATE NEW USER FUNCTIONALITY
+//on click function for submit new user button
+$("#newUserSubmit").on("click", function(){
+	$("#newUserGmailInput").empty();
+//logs the user's inputed email in the gmail variable
+var gmail = $("#newUserGmailInput").val().trim();
+//checks to make sure the user has entered an email that ends with @gmail.com	
+var log = gmail.endsWith("@gmail.com");
+//if true, adds the gmail to the database and assigns them a random user number
+		if (log == true) {
+			//empty the input -----THIS IS NOT WORKING :(
+			$("#newUserGmailInput").empty();
+			userNumber = Math.floor((Math.random() * 10000000) + 1);
+			$("#container").append(userNumber);
+			console.log("New User Created, User Number: " + userNumber);
+			database.ref().push({
+				userGmail:gmail,
+				userNumber:userNumber,
+			});
+		}
+//if false, reports an erro to the user - change this to  a modal not an alert	
+		else(alert("email must be gmail account"))
+			//empty the input -------THIS IS NOT WORKING :(
+			$("#newUserGmailInput").empty();
+});
+
+// var dbNumber = $("#userNumberInput").val().trim();
+// var ref = database.ref();
+// //pull the database object with a user number equal to the inputed user number
+// ref.equalTo(dbNumber).on("child_added", function(snapshot) {
+// console.log(snapshot.key);
+// console.log("IT WORKS!");
+// });
+
+database.ref().on("child_added", function(childSnapshot) {
+var dbUser = childSnapshot.val();
+var dbNumber = $("#userNumberInput").val().trim();
+		console.log(dbUser.userGmail);
+});
+//FOR OLD USER RETURN CHECK TO SEE IF THE USER NUMBER TIED TO THE USER GMAIL ACCOUNT MATCHES, IF SO LOGIN IF NOT REPORT ERROR
+
+//SAVE THE GMAIL ACCOUNT FOR EACH USER, THIS WILL ALLOW US TO USE IT FOR OTHER GOOGLE APIS
+
+});
+</script>
+</body>
+</html>
