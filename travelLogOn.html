@@ -17,13 +17,15 @@
 <div class="container" id="new user" class="col-md-5">
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account">	
+	<div class="col-md-5"> Create passwork</div> 
+	<input type="text" id="newUserPasswordInput" class="form-control" placeholder="Password">
 	<button id="newUserSubmit" class="btn btn-danger" type="button">Submit New User</button> 
 </div>
 <div class="container" id="userLogOn" class="col-md-5">
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
-	<div class="col-md-5">Journal User Number</div> 
-	<input type="text" id="userNumberInput" class="form-control" placeholder="User Number">
+	<div class="col-md-5">Password</div> 
+	<input type="text" id="userPasswordInput" class="form-control" placeholder="Password">
 	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
 </div>
 
@@ -47,26 +49,63 @@ var database = firebase.database();
 $("#newUserSubmit").on("click", function(){
 	$("#newUserGmailInput").empty();
 //logs the user's inputed email in the gmail variable
-var gmail = $("#newUserGmailInput").val().trim();
+var email = $("#newUserGmailInput").val().trim();
 //checks to make sure the user has entered an email that ends with @gmail.com	
-var log = gmail.endsWith("@gmail.com");
-//if true, adds the gmail to the database and assigns them a random user number
-		if (log == true) {
-			//empty the input -----THIS IS NOT WORKING :(
-			$("#newUserGmailInput").empty();
-			userNumber = Math.floor((Math.random() * 10000000) + 1);
-			$("#container").append(userNumber);
-			console.log("New User Created, User Number: " + userNumber);
-			database.ref().push({
-				userGmail:gmail,
-				userNumber:userNumber,
-			});
-		}
-//if false, reports an erro to the user - change this to  a modal not an alert	
+var log = email.endsWith("@gmail.com");
+var password = $("#newUserPasswordInput").val().trim();
+//if true, adds the gmail to the database and the created password
+if (log == true) {
+	console.log("new user created!");
+	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  	var errorCode = error.code;
+  	var errorMessage = error.message;
+  	console.log(errorCode + errorMessage);
+  	});
+}
+	
+//if false, reports an error to the user - change this to  a modal not an alert	
 		else(alert("email must be gmail account"))
 			//empty the input -------THIS IS NOT WORKING :(
 			$("#newUserGmailInput").empty();
+		
 });
+
+$("#userSubmit").on("click", function(){
+	var userPassword = $("#userPasswordInput").val().trim();
+	var userEmail = $("#userGmailInput").val().trim();
+	firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).catch(function(error) {
+  		var errorCode = error.code;
+  		var errorMessage = error.message;
+  		console.log(errorMessage + errorCode);
+  		console.log("LOGIN WORKED");
+	});
+});
+
+
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // var dbNumber = $("#userNumberInput").val().trim();
 // var ref = database.ref();
@@ -76,11 +115,19 @@ var log = gmail.endsWith("@gmail.com");
 // console.log("IT WORKS!");
 // });
 
-database.ref().on("child_added", function(childSnapshot) {
-var dbUser = childSnapshot.val();
-var dbNumber = $("#userNumberInput").val().trim();
-		console.log(dbUser.userGmail);
-});
+// database.ref().on("child_added", function(childSnapshot) {
+// var dbUser = childSnapshot.val();
+// var dbNumber = $("#userNumberInput").val().trim();
+// var dbEmail = $("#userGmailInput").val().trim();
+// 		console.log(dbUser.userGmail);
+// 		if(dbUser.userNumber == dbNumber && dbUser.userGmail == ){
+// 			console.log("LOGIN SUCCESSFUL");
+// 			//THIS IS WHERE THE HTML WILL BE CHANGED TO THE MAIN USER PAGE 
+// 		}
+// 		else(){
+// 			console.log("LOGIN ERROR");
+// 		}
+// });
 //FOR OLD USER RETURN CHECK TO SEE IF THE USER NUMBER TIED TO THE USER GMAIL ACCOUNT MATCHES, IF SO LOGIN IF NOT REPORT ERROR
 
 //SAVE THE GMAIL ACCOUNT FOR EACH USER, THIS WILL ALLOW US TO USE IT FOR OTHER GOOGLE APIS
