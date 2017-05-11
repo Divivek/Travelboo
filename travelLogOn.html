@@ -46,7 +46,6 @@ var database = firebase.database();
 //CREATE NEW USER FUNCTIONALITY
 //on click function for submit new user button
 $("#newUserSubmit").on("click", function(){
-//FIREBASE WILL NOT ALLOW YOU TO MAKE AN ACCOUNT WITH A PASSWORD UNDER 6 CHAR
 //logs the user's inputed email in the gmail variable
 var email = $("#newUserGmailInput").val().trim();
 //checks to make sure the user has entered an email that ends with @gmail.com	
@@ -58,6 +57,7 @@ if (log == true) {
 	console.log("new user created!");
 		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
+  console.log("test");
   		var errorCode = error.code;
   		var errorMessage = error.message;
   		console.log(errorCode + errorMessage);
@@ -74,15 +74,18 @@ $("#newUserPasswordInput").empty();
 $("#newUserGmailInput").empty();
 		
 });
-
+//RETURNING USER LOGIN FUNCTIONALITY
+//on click function
 $("#userSubmit").on("click", function(){
-	console.log("clicks working for login"); //THIS WORKS
+	event.preventDefault();
+	console.log("clicks working for login"); //THIS WORKS -----debugging
+	//store password and email
 	 var logPassword = $("#userPasswordInput").val().trim();
 	 var logEmail = $("#userGmailInput").val().trim();
-// console.log(logPassword);
-// console.log(logEmail);
-	firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error) {
-		console.log("LOGIN WORKED"); //THIS DOES NOT
+//pass password and email to signin function
+	firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error){
+		console.log("LOGIN WORKED");
+		 //THIS DOES NOT WORK
   		var errorCode = error.code;
   		var errorMessage = error.message;
   		console.log(errorMessage + errorCode);
