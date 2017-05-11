@@ -51,19 +51,20 @@ function updateMap(lat, long, zoom) {
 $("#submit").click(function(){
 	event.preventDefault();
 	
-	var city = $("#city").val().trim();
-	var state = $("#state").val().trim();
+	var location = $("#location").val().trim();
+
 
 	var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
-	 + city + ",+" + state + "&key=" + googleAPIKey;
+	 + location + "&key=" + googleAPIKey;
 
-	 console.log("city", city, "state", state, "queryURL", queryURL);
+	// console.log("location", location, "queryURL", queryURL);
+
 	 $.ajax({url: queryURL, method: "GET"})
 	  .done(function(response){
 
-	  		console.log(response);
+	  		//console.log(response);
 
-	  		updateMap( response.results[0].geometry.location.lat, response.results[0].geometry.location.lng , 10);
+	  		updateMap( response.results[0].geometry.location.lat, response.results[0].geometry.location.lng , 7);
 
 	  })
 
