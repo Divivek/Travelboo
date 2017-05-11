@@ -18,20 +18,19 @@
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account">	
 	<div class="col-md-5"> Create password</div> 
-	<input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password">
+	<input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password must be 6 char">
 	<button id="newUserSubmit" class="btn btn-danger" type="button">Submit New User</button> 
 </div>
 <div class="container" id="userLogOn" class="col-md-5">
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
 	<div class="col-md-5">Password</div> 
-	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password must be 6 char">
+	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
 	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
 </div>
 
 <script type="text/javascript">
 $(document).ready(function() {
-var userNumber = 1;	
 //FIREBASE CONFIG
   // Initialize Firebase
   var config = {
@@ -77,13 +76,16 @@ $("#newUserGmailInput").empty();
 });
 
 $("#userSubmit").on("click", function(){
-	var userPassword = $("#userPasswordInput").val().trim();
-	var userEmail = $("#userGmailInput").val().trim();
-	firebase.auth().signInWithEmailAndPassword(userEmail, userPassword).catch(function(error) {
+	console.log("clicks working for login"); //THIS WORKS
+	 var logPassword = $("#userPasswordInput").val().trim();
+	 var logEmail = $("#userGmailInput").val().trim();
+// console.log(logPassword);
+// console.log(logEmail);
+	firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error) {
+		console.log("LOGIN WORKED"); //THIS DOES NOT
   		var errorCode = error.code;
   		var errorMessage = error.message;
   		console.log(errorMessage + errorCode);
-  		console.log("LOGIN WORKED");
 	});
 });
 
