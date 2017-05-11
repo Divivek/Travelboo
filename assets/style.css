@@ -1,0 +1,18 @@
+body{
+	background-image: url("./images/1.jpg");
+}
+
+
+.container{
+	background-color: blue;
+	text-align: center;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form{
+background-color: blue;	
+}
+
+.nav>li>a {
+	margin-right: 120px;
+	padding-top: 10px;
+}
