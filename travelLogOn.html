@@ -25,7 +25,7 @@
 	<div class="col-md-5"> Gmail Account</div> 
 	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
 	<div class="col-md-5">Password</div> 
-	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
+	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password must be 6 char">
 	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
 </div>
 
@@ -47,7 +47,7 @@ var database = firebase.database();
 //CREATE NEW USER FUNCTIONALITY
 //on click function for submit new user button
 $("#newUserSubmit").on("click", function(){
-	$("#newUserGmailInput").empty();
+//FIREBASE WILL NOT ALLOW YOU TO MAKE AN ACCOUNT WITH A PASSWORD UNDER 6 CHAR
 //logs the user's inputed email in the gmail variable
 var email = $("#newUserGmailInput").val().trim();
 //checks to make sure the user has entered an email that ends with @gmail.com	
@@ -55,19 +55,24 @@ var log = email.endsWith("@gmail.com");
 var password = $("#newUserPasswordInput").val().trim();
 //if true, adds the gmail to the database and the created password
 if (log == true) {
+	if (password.length >= 7){
 	console.log("new user created!");
-	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
-  	var errorCode = error.code;
-  	var errorMessage = error.message;
-  	console.log(errorCode + errorMessage);
-  	});
+  		var errorCode = error.code;
+  		var errorMessage = error.message;
+  		console.log(errorCode + errorMessage);
+  		console.log(email);
+  			database.ref().push({
+  			username:email,
+  			});
+  		});
+	}
+	else(alert("password must be 7 char or longer"))	
 }
-	
-//if false, reports an error to the user - change this to  a modal not an alert	
-	else(alert("email must be gmail account"))
-	//empty the input -------THIS IS NOT WORKING :(
-	$("#newUserGmailInput").empty();
+	else(alert("email must be a gmail acccount"))	
+$("#newUserPasswordInput").empty();
+$("#newUserGmailInput").empty();
 		
 });
 
@@ -83,11 +88,11 @@ $("#userSubmit").on("click", function(){
 });
 
 //NEED TO CREATE A SIGNOUT PAGE 
-firebase.auth().signOut().then(function() {
-  // Sign-out successful.
-}).catch(function(error) {
-  // An error happened.
-});
+// firebase.auth().signOut().then(function() {
+//   // Sign-out successful.
+// }).catch(function(error) {
+//   // An error happened.
+// });
 
 
 
