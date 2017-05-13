@@ -9,21 +9,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  <!--  FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-
+ <!--  Bootstrap.js -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <head>
-<!-- modal -->
-<script>
-  $( function() {
-    $( "#dialog-message" ).dialog({
-      modal: true,
-      buttons: {
-        Ok: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-    });
-  } );
-  </script>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,9 +29,7 @@
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
-    <!-- Plugin CSS -->
-
-    <!-- Theme CSS -->
+    <!-- CSS -->
     <link href="css/new-age.css" rel="stylesheet">
 
 
@@ -102,17 +88,29 @@
     </footer>
 
 <!-- error message popup window -->
-<div id="dialog-message" title="email error">
-  <p>
-    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-    email adress must be a gmail adress for full functionality
-  </p>
+  <div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">email or Password Error</h4>
+        </div>
+        <div class="modal-body">
+          <p>Email must be a Gmail account for full functionality.</p><br>
+          <p>Passwords must be 7 characters or more.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>
-
 <script type="text/javascript">
 
 $(document).ready(function() {
-	modal = false;
 //FIREBASE CONFIG
   // Initialize Firebase
   var config = {
@@ -151,10 +149,15 @@ if (log == true) {
         });
     }
     //MODAL CALLS
-    else(modal=true)    
+    else{
+    	$("#errorModal").modal("toggle");
+    }
+
 }
 	//MODAL CALLS
-    else(modal=true)   
+    else{
+    	$("#errorModal").modal("toggle");
+    }  
     	//empty the divs if false
 $("#newUserPasswordInput").empty();
 $("#newUserGmailInput").empty();
@@ -178,18 +181,23 @@ $("#userSubmit").on("click", function(){
 });
 
 //NEED TO CREATE A SIGNOUT PAGE ----create signout button on the other pages calling this function
-// firebase.auth().signOut().then(function() {
-//   // Sign-out successful.
-//   var loggedIn = false;
-// }).catch(function(error) {
-//   // An error happened.
-// });
+$(".signOutButton").on("click", function(){
+	firebase.auth().signOut().then(function() {
+  	// Sign-out suc/cessful.
+  	var loggedIn = false;
+	}).catch(function(error) {
+  	// An error happened.
+	});
+});	
+
+//EVENT LISTENER TO SEE IS USER IS LOGGED IN
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
   	//event listener, initiallized in next function - ignore this
   } else {
   }
 });
+//GETS THE CURRENT USER FROM FIREBASE AND REPORTS LOGGED IN STATUS
 var user = firebase.auth().currentUser;
 if (user != null) {
   email = user.email;
@@ -204,9 +212,7 @@ else{
 loggedIn = false;
 }
 console.log("logged in? " + loggedIn);
-
-
-//USE THE loggedIn Boolean variable to change the rest of the html
+//USE THE loggedIn BOOLEAN VARRIABLE TO CHANGE HTML TO HOME PAGE
 
 
 
