@@ -4,18 +4,32 @@
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!--   Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  <!--  FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 
 <head>
+<!-- modal -->
+<script>
+  $( function() {
+    $( "#dialog-message" ).dialog({
+      modal: true,
+      buttons: {
+        Ok: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+  } );
+  </script>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
     <title>travel app - working title </title>
 
@@ -86,9 +100,19 @@
             </ul>
         </div>
     </footer>
+
+<!-- error message popup window -->
+<div id="dialog-message" title="email error">
+  <p>
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    email adress must be a gmail adress for full functionality
+  </p>
+</div>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
+	modal = false;
 //FIREBASE CONFIG
   // Initialize Firebase
   var config = {
@@ -126,9 +150,12 @@ if (log == true) {
             });
         });
     }
-    else(alert("password must be 7 char or longer"))    
+    //MODAL CALLS
+    else(modal=true)    
 }
-    else(alert("email must be a gmail acccount"))   
+	//MODAL CALLS
+    else(modal=true)   
+    	//empty the divs if false
 $("#newUserPasswordInput").empty();
 $("#newUserGmailInput").empty();
         
