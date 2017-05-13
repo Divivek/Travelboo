@@ -57,7 +57,7 @@ if (log == true) {
 	console.log("new user created!");
 		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
-  console.log("test");
+  console.log("create user error");
   		var errorCode = error.code;
   		var errorMessage = error.message;
   		console.log(errorCode + errorMessage);
@@ -78,14 +78,13 @@ $("#newUserGmailInput").empty();
 //on click function
 $("#userSubmit").on("click", function(){
 	event.preventDefault();
-	console.log("clicks working for login"); //THIS WORKS -----debugging
+	console.log("clicks working for login"); 
 	//store password and email
 	 var logPassword = $("#userPasswordInput").val().trim();
 	 var logEmail = $("#userGmailInput").val().trim();
 //pass password and email to signin function
 	firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error){
-		console.log("LOGIN WORKED");
-		 //THIS DOES NOT WORK
+		console.log("login error");
   		var errorCode = error.code;
   		var errorMessage = error.message;
   		console.log(errorMessage + errorCode);
