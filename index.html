@@ -122,23 +122,23 @@ $(document).ready(function() {
     messagingSenderId: "621543108481",
 }
 firebase.initializeApp(config);
-var database = firebase.database();
-//CREATE NEW USER FUNCTIONALITY
-var loggedIn = false;
+	var database = firebase.database();
+//****************************************CREATE NEW USER FUNCTIONALITY****************************************************
+	var loggedIn = false;
 //on click function for submit new user button
 $("#newUserSubmit").on("click", function(){
 //logs the user's inputed email in the gmail variable
-var email = $("#newUserGmailInput").val().trim();
+	var email = $("#newUserGmailInput").val().trim();
 //checks to make sure the user has entered an email that ends with @gmail.com   
-var log = email.endsWith("@gmail.com");
-var password = $("#newUserPasswordInput").val().trim();
+	var log = email.endsWith("@gmail.com");
+	var password = $("#newUserPasswordInput").val().trim();
 //if true, adds the gmail to the database and the created password
 if (log == true) {
     if (password.length >= 7){
-    console.log("new user created!");
+    	console.log("new user created!");
  		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
-  console.log("create user error");
+  		console.log("create user error");
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log(errorCode + errorMessage);
@@ -147,23 +147,24 @@ if (log == true) {
             username:email,
             });
         });
-    }
+    }//end of password length if funciton
     //MODAL CALLS
-    else{
-    	$("#errorModal").modal("toggle");
-    }
+    	else{
+    		$("#errorModal").modal("toggle");
+    	}
 
-}
+}//end of gmail check if function
 	//MODAL CALLS
     else{
     	$("#errorModal").modal("toggle");
     }  
-    	//empty the divs if false
+    	//empty the divs 
 $("#newUserPasswordInput").empty();
 $("#newUserGmailInput").empty();
         
-});
-//RETURNING USER LOGIN FUNCTIONALITY
+});//end of new user function
+
+//****************************************RETURNING USER LOGIN FUNCTIONALITY*****************************************
 //on click function
 $("#userSubmit").on("click", function(){
     event.preventDefault();
@@ -178,8 +179,8 @@ $("#userSubmit").on("click", function(){
         var errorMessage = error.message;
         console.log(errorMessage + errorCode);
     });
-});
-
+});//end of new user function
+//******************************************SIGN OUT FUNCTION*********************************************************
 //NEED TO CREATE A SIGNOUT PAGE ----create signout button on the other pages calling this function
 $(".signOutButton").on("click", function(){
 	firebase.auth().signOut().then(function() {
@@ -190,7 +191,7 @@ $(".signOutButton").on("click", function(){
 	});
 });	
 
-//EVENT LISTENER TO SEE IS USER IS LOGGED IN
+//***********************************EVENT LISTENER TO SEE IF USER IS LOGGED IN*************************************
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
   	//event listener, initiallized in next function - ignore this
@@ -213,8 +214,9 @@ loggedIn = false;
 }
 console.log("logged in? " + loggedIn);
 //USE THE loggedIn BOOLEAN VARRIABLE TO CHANGE HTML TO HOME PAGE
-
-
+//the variable user is set to the current user object - use that for logging aditional information - pictures etc. 
+//syntax is firebase.auth().currentUser.**whatever**
+//the current user is also saved in the user variable, user.**whatever** will also suffice
 
 
 });
