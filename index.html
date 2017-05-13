@@ -35,10 +35,10 @@
 
 
 </head>
-
 <body id="page-top">
     <header>
         <div class="container">
+        <button id="signOutButton" class="btn btn-danger">Sign Out</button>
             <div class="row">
                 <div class="col-sm-7">
                     <div class="header-content">
@@ -179,12 +179,16 @@ $("#userSubmit").on("click", function(){
         var errorMessage = error.message;
         console.log(errorMessage + errorCode);
     });
+console.log("logged in? " + loggedIn);
+console.log(uEmail);
 });//end of new user function
 //******************************************SIGN OUT FUNCTION*********************************************************
 //NEED TO CREATE A SIGNOUT PAGE ----create signout button on the other pages calling this function
-$(".signOutButton").on("click", function(){
+$("#signOutButton").on("click", function(){
 	firebase.auth().signOut().then(function() {
-  	// Sign-out suc/cessful.
+  	// Sign-out successful.
+  	console.log("logged out");
+
   	var loggedIn = false;
 	}).catch(function(error) {
   	// An error happened.
@@ -195,13 +199,14 @@ $(".signOutButton").on("click", function(){
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
   	//event listener, initiallized in next function - ignore this
+  	console.log(uEmail + " auth state changed");
   } else {
   }
-});
+
 //GETS THE CURRENT USER FROM FIREBASE AND REPORTS LOGGED IN STATUS
 var user = firebase.auth().currentUser;
 if (user != null) {
-  email = user.email;
+  var uEmail = user.email;
   uid = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
@@ -212,7 +217,8 @@ else{
 	console.log("no one is signed in");
 loggedIn = false;
 }
-console.log("logged in? " + loggedIn);
+console.log("logged in Boolean? " + loggedIn);
+});
 //USE THE loggedIn BOOLEAN VARRIABLE TO CHANGE HTML TO HOME PAGE
 //the variable user is set to the current user object - use that for logging aditional information - pictures etc. 
 //syntax is firebase.auth().currentUser.**whatever**
