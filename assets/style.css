@@ -1,0 +1,16 @@
+body{
+	background-image: url("./images/1.jpg");
+}
+
+
+/*.container{
+	background-color: blue;
+	text-align: center;
+}*/
+
+/*x*/
+
+.nav>li>a {
+	margin-right: 120px;
+	padding-top: 10px;
+}
