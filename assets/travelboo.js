@@ -94,7 +94,7 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
 
      database.ref().push({
         imageUrl: localImageUrl,
-        comment : comment,
+        // comment : comment,
      }); 
   });
 }
