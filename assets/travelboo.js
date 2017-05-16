@@ -25,7 +25,7 @@
   var commentdata = "";
   
    // var downloadURL = "";
-  var comment = $("#comment");
+  var comment = $("#comment" );
   var photos=$("#addPicBox");
 
 //=================================================================================//
@@ -90,22 +90,31 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
       // });
 
       console.log(comment);
+     // var newkey = database.ref().push().key;
 
      database.ref().push({
-
         imageUrl: localImageUrl,
-       // comment : comment
-
+        comment : comment,
      }); 
   });
 }
 
-$(document).on("click", "#addData", function(event) {
+
+
+   
+
+
+
+
+$(document).on("click", ".addData", function(event) {
   console.log("comment click working");
       event.preventDefault();
-      comment = $('#comment').val();
+      comment = $("#comment").val();
+      ldbKey = $(this).attr("dbKey");
       console.log(comment);
-      database.ref().update({
+
+      console.log(ldbKey);
+      database.ref(ldbKey).update({
         comment: comment
       });
 
@@ -139,6 +148,9 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
    console.log(childSnapshot.val());
 
    // var column = $("<div class='col-sm-3 col-md-3'");
+    // ADDED 
+    var dbRefKey = childSnapshot.key;
+    // use above key as property of button so that we can get to it at time of update
     var column = $('<div class="col-sm-3 col-md-">');
     localImageUrl = childSnapshot.val().imageUrl;
     var photoImage = $("<img width='200px'>");
@@ -146,12 +158,19 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     photoImage.attr("src", localImageUrl);
 
 
-    commentData = childSnapshot.val();
+    commentData = childSnapshot.val().comment;
+    var submitButton = $("<button>");
+    submitButton.addClass("addData");
+
+    submitButton.attr("dbKey", dbRefKey);
+
     // var commentForm = $('form class="form-group" action=""><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><button type="submit" id="addData" value="Submit">Submit Comment</button></form>')
-   //var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><input type="submit" id="addData" value="Submit">Submit Comment</form>')
+//   var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><input type="submit" id="addData" value="Submit">Submit Comment</form>')
+   var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
     $("#commentBox").append(commentData);
     column.append(photoImage);
-    //column.append(commentForm);
+    column.append(commentForm);
+    column.append(submitButton);
 
     $("#playArea").append(column);
     
