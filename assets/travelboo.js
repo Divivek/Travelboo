@@ -83,46 +83,55 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
 
       // $(document).on("click", "#addData", function(event) {
       //   event.preventDefault();
-      //  comment = $('#textArea').val().trim();
+      //   comment = $('#textArea').val().trim();
       //   console.log(comment);
       // });
+      console.log(comment);
 
-
-      database.ref().push({
+     database.ref().push({
 
         imageUrl: localImageUrl,
-          // comment : {}
-          comment:comment.val()
+       // comment : comment
 
-      }); 
+     }); 
   });
 }
 
 $(document).on("click", "#addData", function(event) {
+  console.log("comment click working");
       event.preventDefault();
-      comment = $('#comment').val().trim();
+      comment = $('#comment').val();
       console.log(comment);
+      database.ref().update({
+comment: comment
+      });
 });
 
 
-         // comment:comment
 
-     
+// $("#addData").on("click", function(){
+//       event.preventDefault;
+//       comment = $('#textArea').val().trim();
+//       console.log(comment);
+// })
+
+
+
 //=================================================================================//
 
 
 // $("#fileUploadButton").on("click",function() {
-//   	event.preventDefault();
+//    event.preventDefault();
 //      // photos = $(<img >").val();
-// 	 comment = $("#comment").val().trim();
-// 	 database.ref().push({
-// 	   comment : comment,
-// 	    imageUrl:localImageUrl
-// 	 }); 	
+//   comment = $("#comment").val().trim();
+//   database.ref().push({
+//     comment : comment,
+//      imageUrl:localImageUrl
+//   });  
 // });
 
 database.ref().on("child_added", function(childSnapshot, prevChildKey){
-	 console.log(childSnapshot.val());
+   console.log(childSnapshot.val());
 
    // var column = $("<div class='col-sm-3 col-md-3'");
     var column = $('<div class="col-sm-3 col-md-">');
@@ -130,15 +139,18 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     var photoImage = $("<img width='200px'>");
     photoImage.addClass("pictures");
     photoImage.attr("src", localImageUrl);
- 
-    commentData = childSnapshot.val().comment;
-    var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><input type="submit" id="addData" value="Submit">Submit Comment</form>')
-    commentForm.append(commentData);
+
+
+    commentData = childSnapshot.val();
+    // var commentForm = $('form class="form-group" action=""><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><button type="submit" id="addData" value="Submit">Submit Comment</button></form>')
+   //var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea><input type="submit" id="addData" value="Submit">Submit Comment</form>')
+    $("#commentBox").append(commentData);
     column.append(photoImage);
-    column.append(commentForm);
+    //column.append(commentForm);
 
     $("#playArea").append(column);
-      	 
-    }, function(errorObject){
-    console.log(errorObject.code);
-});	
+    
+       
+ }, function(errorObject){
+   console.log(errorObject.code);
+}); 
