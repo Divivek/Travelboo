@@ -39,7 +39,9 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
   var metadata = {  contentType: 'image/jpeg'};
 
   // Upload file and metadata to the object 'image'
-  var uploadTask = storageRef.child('images/' + file.name ).put(file, metadata);
+
+  var uploadTask = storageRef.child('images/' + file.name  ).put(file, metadata);
+
 
   // Listen for state changes, errors, and completion of the upload.
   uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -86,6 +88,7 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
       //   comment = $('#textArea').val().trim();
       //   console.log(comment);
       // });
+
       console.log(comment);
 
      database.ref().push({
@@ -103,8 +106,9 @@ $(document).on("click", "#addData", function(event) {
       comment = $('#comment').val();
       console.log(comment);
       database.ref().update({
-comment: comment
+        comment: comment
       });
+
 });
 
 
@@ -121,6 +125,7 @@ comment: comment
 
 
 // $("#fileUploadButton").on("click",function() {
+
 //    event.preventDefault();
 //      // photos = $(<img >").val();
 //   comment = $("#comment").val().trim();
@@ -151,6 +156,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     $("#playArea").append(column);
     
        
+
  }, function(errorObject){
    console.log(errorObject.code);
 }); 
