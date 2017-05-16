@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<!-- Jquery -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<!--   Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <!--  FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<head>
+	<title>Login Page</title>
+</head>
+<body>
+	<div id="pageTitle"><h1>Boogaloo Travel Journal</h1></div>
+<div class="container" id="new user" class="col-md-5">
+	<div class="col-md-5"> Gmail Account</div> 
+	<input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account">	
+	<div class="col-md-5"> Create password</div> 
+	<input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password must be 6 char">
+	<button id="newUserSubmit" class="btn btn-danger" type="button">Submit New User</button> 
+</div>
+<div class="container" id="userLogOn" class="col-md-5">
+	<div class="col-md-5"> Gmail Account</div> 
+	<input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">	
+	<div class="col-md-5">Password</div> 
+	<input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
+	<button id="userSubmit" class="btn btn-danger" type="button">Submit</button> 
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+//FIREBASE CONFIG
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDQeAXWZpnytGGVtlyNngDlMoAf-PRiCKk",
+    authDomain: "userlogs-a1164.firebaseapp.com",
+    databaseURL: "https://userlogs-a1164.firebaseio.com",
+    projectId: "userlogs-a1164",
+    storageBucket: "userlogs-a1164.appspot.com",
+    messagingSenderId: "621543108481",
+}
+firebase.initializeApp(config);
+var database = firebase.database();
+//CREATE NEW USER FUNCTIONALITY
+//on click function for submit new user button
+$("#newUserSubmit").on("click", function(){
+//logs the user's inputed email in the gmail variable
+var email = $("#newUserGmailInput").val().trim();
+//checks to make sure the user has entered an email that ends with @gmail.com	
+var log = email.endsWith("@gmail.com");
+var password = $("#newUserPasswordInput").val().trim();
+//if true, adds the gmail to the database and the created password
+if (log == true) {
+	if (password.length >= 7){
+	console.log("new user created!");
+		firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  console.log("create user error");
+  		var errorCode = error.code;
+  		var errorMessage = error.message;
+  		console.log(errorCode + errorMessage);
+  		console.log(email);
+  			database.ref().push({
+  			username:email,
+  			});
+  		});
+	}
+	else(alert("password must be 7 char or longer"))	
+}
+	else(alert("email must be a gmail acccount"))	
+$("#newUserPasswordInput").empty();
+$("#newUserGmailInput").empty();
+		
+});
+//RETURNING USER LOGIN FUNCTIONALITY
+//on click function
+$("#userSubmit").on("click", function(){
+	event.preventDefault();
+	console.log("clicks working for login"); 
+	//store password and email
+	 var logPassword = $("#userPasswordInput").val().trim();
+	 var logEmail = $("#userGmailInput").val().trim();
+//pass password and email to signin function
+	firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error){
+		console.log("login error");
+  		var errorCode = error.code;
+  		var errorMessage = error.message;
+  		console.log(errorMessage + errorCode);
+	});
+});
+
+//NEED TO CREATE A SIGNOUT PAGE 
+// firebase.auth().signOut().then(function() {
+//   // Sign-out successful.
+// }).catch(function(error) {
+//   // An error happened.
+// });
+
+
+
+});
+</script>
+</body>
+</html>
