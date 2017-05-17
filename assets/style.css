@@ -10,7 +10,33 @@ body{
 
 /*x*/
 
-.nav>li>a {
-	margin-right: 120px;
-	padding-top: 10px;
-}
+	.nav>li>a {
+		margin-right: 120px;
+		padding-top: 10px;
+	}
+
+	.pictures {
+		border:5px solid blue;
+		width:250px;
+		height:250px;
+	} 
+	.form-control{
+		width:250px;
+		background-color: #87CEFA;
+		border: 5px solid blue;
+	}
+
+	 button{
+		height: 30px;
+	    width: 100px;
+	    background-color:  #87CEFA;
+	}
+
+
+	#fileUploadButton {
+		text-align: center;
+		width:"24";
+		height:"12";
+		background-color:  #87CEFA;
+		
+	}

@@ -102,14 +102,14 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     // use above key as property of button so that we can get to it at time of update
     var column = $('<div class="col-sm-3 col-md-">');
     localImageUrl = childSnapshot.val().imageUrl;
-    var photoImage = $("<img width='200px'>");
+    var photoImage = $("<img >");
     photoImage.addClass("pictures");
     photoImage.attr("src", localImageUrl);
     commentData = childSnapshot.val().comment;
     var submitButton = $("<button>");
     submitButton.addClass("addData");
     submitButton.attr("dbKey", dbRefKey);
-    var commentForm = $('<form class="form-group"><label for="comment">Comment:</label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
+    var commentForm = $('<form class="form-group"><label for="comment"></label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
     $("#commentBox").append(commentData);
     column.append(photoImage);
     column.append(commentForm);
