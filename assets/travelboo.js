@@ -9,22 +9,17 @@
     };
     // intialize firebase
       var defaultApp = firebase.initializeApp(config);
-      
       console.log(defaultApp.name);  // "[DEFAULT]"
       //  create the database variable
       var database = defaultApp.database();
       // var to access firebase storage API
       var defaultStorage = defaultApp.storage();
-      // create a ref tto the storage to perform API function
+      // create a ref to the storage to perform API function
       var storageRef = defaultStorage.ref();
-     //---- var imagesRef = storageRef.child('images');
-      //----------------------------------------//
       var place = "";
       var localImageUrl = "";
       var nameData="";
       var commentdata = "";
-      
-       // var downloadURL = "";
       var comment = $("#comment" );
       var photos=$("#addPicBox");
 
