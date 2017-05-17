@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--   Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <!--  FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+ <!--  Bootstrap.js -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+    <title>travel app - working title </title>
+
+    <!-- Bootstrap Core CSS -->
+<!--     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="css/new-age.css" rel="stylesheet">
+
+
+
+</head>
+<body id="page-top">
+    <header>
+    <div id="LogOnPage">
+        <div class="container">
+        <button id="signOutButton" class="btn btn-danger">Sign Out</button>
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>TRAVEL APP WORKING TITLE</h1>
+                            <h2>log and track your vacations, share stories and images</h2>
+                            <div class="col-md-5"> Gmail Account</div> 
+                             <input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">    
+                            <div class="col-md-5">Password</div> 
+                            <input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
+                            <button id="userSubmit" class="btn btn-default" type="button">Submit</button> 
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </header>
+
+    <section id="title" class="download bg-primary text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Join up and start exploring!</h2>
+
+    <div> Gmail Account</div> 
+    <input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account"> 
+    <div> Create password</div> 
+    <input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password must be 6 char">
+    <button id="newUserSubmit" class="btn btn-default" type="button">Submit New User</button> 
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Copyright TDC</p>
+            <ul class="list-inline">
+                <li>
+                    <p>Rutgers coding Bootcamp 2017</p>
+                </li>
+                <li>
+                   <p>template used: Newage bootstrap template</p>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+<!-- error message popup window -->
+  <div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">email or Password Error</h4>
+        </div>
+        <div class="modal-body">
+          <p>Email must be a Gmail account for full functionality.</p><br>
+          <p>Passwords must be 7 characters or more.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> <!-- end of log on page -->
+<script type="text/javascript" src= "logOnLogic.js" >
+</script>
+</body>
+</html>
