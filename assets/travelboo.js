@@ -115,6 +115,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     column.append(commentForm);
     column.append(submitButton);
     $("#playArea").append(column);
+    $(".addData").text("+ comment");
  }, function(errorObject){
    console.log(errorObject.code);
 }); 
