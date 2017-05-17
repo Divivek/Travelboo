@@ -1,37 +1,32 @@
-body{
-	background-image: url("./images/2.jpg");
-}
-.navbar-default {
-    background-color: #7d628c;
-    border-color: #408fa9;
-}
+	body{
+		background-image: url("./images/2.jpg");
+	}
+	.navbar-default {
+	    background-color: #7d628c;
+	    border-color: #408fa9;
+	}
 	.nav>li>a {
 		margin-right: 120px;
 		padding-top: 10px;
 	}
-
 	.pictures {
-		border:5px solid blue;
+		border:5px solid #24a05a;
 		width:250px;
 		height:250px;
 	} 
 	.form-control{
 		width:250px;
 		background-color: #87CEFA;
-		border: 5px solid blue;
+		border: 5px solid #118cb9;
 	}
-
 	 button{
 		height: 30px;
 	    width: 100px;
 	    background-color:  #87CEFA;
 	}
-
-
 	#fileUploadButton {
 		text-align: center;
 		width:"24";
 		height:"12";
 		background-color:  #87CEFA;
-		
 	}
