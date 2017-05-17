@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
   console.log("JS ready!");
+  //Hide the other pages
+  //$("#travel-Book").hide();
+  //$("#chiragsPage").hide();
 //***********************************************FIREBASE CONFIG***********************************************************
   // Initialize Firebase
   var config = {
@@ -78,8 +81,7 @@ $("#signOutButton").on("click", function(){
 	firebase.auth().signOut().then(function() {
   	// Sign-out successful.
   	console.log("logged out");
-
-  	var loggedIn = false;
+  	 loggedIn = false;
 	}).catch(function(error) {
   	// An error happened.
 	});
@@ -120,8 +122,8 @@ console.log("logged in Boolean? " + loggedIn);
 //the current user is also saved in the user variable, user.**whatever** will also suffice
 
 // if (loggedIn == true) {
-// 	$("#page-top").html(**all other html here**)
+// 	$("#logOnPage").hide();
+//  $("#travel-Book").show();
 // }
-//http://stackoverflow.com/questions/17148357/including-external-html-file-to-another-html-file
 
 });
