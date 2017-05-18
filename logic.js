@@ -246,6 +246,9 @@ $("#back-to-travel-Book").click(function(){
     
 });
  ////////////////////////////////////////////END OF DIVYAS JAVASCRIPT/////////////////////////////////
+
+});
+
 ////////////////////////////////////////////CHIRAGS JAVASCRIPT/////////////////////////////////////////
 var googleAPIKey="AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI";
 
@@ -392,9 +395,3 @@ function getLongitudeAndLatitude(place){
     })
 
 }
-
-
-
-
-
-});
