@@ -122,20 +122,20 @@ console.log("logged in Boolean? " + loggedIn);
 // ************************************************V**V**V**V**V**V**V********************************************
 
 //////////////////////////////////////DIVYAS JAVASCRIPT//////////////////////////////////////////////////////////
-// var defaultApp = firebase.initializeApp(config);
+//var defaultApp = firebase.initializeApp(config);
 //       console.log(defaultApp.name);  // "[DEFAULT]"
 //       //  create the database variable
 //       database = firebase.database();
 //       // var to access firebase storage API
-//       var defaultStorage = defaultApp.storage();
+      var defaultStorage = firebase.storage();
 //       // create a ref to the storage to perform API function
-//       var storageRef = defaultStorage.ref();
-//       var place = "";
-//       var localImageUrl = "";
-//       var nameData="";
-//       var commentdata = "";
-//       var comment = $("#comment" );
-//       var photos=$("#addPicBox");
+      var storageRef = defaultStorage.ref();
+      var place = "";
+      var localImageUrl = "";
+      var nameData="";
+      var commentdata = "";
+      var comment = $("#comment" );
+      var photos=$("#addPicBox");
  pageNumber = 1;      
  console.log(pageNumber)
 // //=================================================================================//
