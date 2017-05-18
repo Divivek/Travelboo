@@ -228,25 +228,24 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     column.append(submitButton);
     $("#playArea").append(column);
     $(".addData").text("+ comment");
+    photoImage.click(pictureClick);
  }, function(errorObject){
    console.log(errorObject.code);
  });
-// $("#mapButton").on("click", function(){
-//   pageNumber = 2;
-//   console.log(pagenumber);
-// });
-$(".pictures").click(function(){
-    $("#travel-Book").hide();
-    console.log("working page change");
-    $("#trip-details").show();
-});
 
-$("#back-to-travel-Book").click(function(){
-    $("#travel-Book").show();
-    console.log("back button working");
-    $("#trip-details").hide();
-    
-});
+function pictureClick(){
+     console.log("hidden");
+     console.log("next page shown");
+   $("#travel-Book").hide();
+   $("#trip-details").show();
+ }
+ $("#back").on("click",function(){
+   $("#travel-Book").show();
+   $("#trip-details").hide();
+   });
+
+
+
  ////////////////////////////////////////////END OF DIVYAS JAVASCRIPT/////////////////////////////////
 
 });
