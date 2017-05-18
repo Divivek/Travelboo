@@ -107,13 +107,15 @@ if (user != null) {
 console.log(user.email); 
 loggedIn = true;  
  $("#LogOnPage").hide();
- $("#travel-Book").show();          
+ $("#travel-Book").show();  
+ $("#trip-details").hide();        
 }
 else{
 	console.log("no one is signed in");
 loggedIn = false;
    $("#travel-Book").hide();
    $("#LogOnPage").show();
+   $("#trip-details").hide();
 }
 console.log("logged in Boolean? " + loggedIn);
 });
