@@ -97,6 +97,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     // use above key as property of button so that we can get to it at time of update
     var column = $('<div class="col-sm-3 col-md-">');
     localImageUrl = childSnapshot.val().imageUrl;
+    // var imageLink = $('<a href="/maps.html"><img src= lo</a>')
     var photoImage = $("<img >");
     photoImage.addClass("pictures");
     photoImage.attr("src", localImageUrl);
@@ -111,6 +112,24 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey){
     column.append(submitButton);
     $("#playArea").append(column);
     $(".addData").text("+ comment");
+    photoImage.click(pictureClick);
+
+ 
+
+
+
  }, function(errorObject){
    console.log(errorObject.code);
 }); 
+
+
+function pictureClick(){
+     console.log("hidden");
+     console.log("next page shown");
+   $("#travel-Book").hide();
+   $("#trip-details").show();
+ }
+ $("#back").on("click",function(){
+   $("#travel-Book").show();
+   $("#trip-details").hide();
+   });
