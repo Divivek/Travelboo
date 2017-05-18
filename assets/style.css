@@ -16,14 +16,10 @@
 	} 
 	.form-control{
 		width:250px;
-		background-color: #87CEFA;
-		border: 5px solid #118cb9;
+	/*	background-color: #87CEFA;*/
+	/*	border: 5px solid #118cb9;*/
 	}
-	 button{
-		height: 30px;
-	    width: 100px;
-	    background-color:  #87CEFA;
-	}
+
 	#fileUploadButton {
 		text-align: center;
 		width:"24";

@@ -2,8 +2,9 @@
 $(document).ready(function() {
   console.log("JS ready!");
   //Hide the other pages
-  //$("#travel-Book").hide();
+  $("#travel-Book").hide();
   //$("#chiragsPage").hide();
+  var pagenumber = 0;
 //***********************************************FIREBASE CONFIG***********************************************************
   // Initialize Firebase
   var config = {
@@ -16,6 +17,7 @@ $(document).ready(function() {
 }
 firebase.initializeApp(config);
 	var database = firebase.database();
+
 //****************************************CREATE NEW USER FUNCTIONALITY****************************************************
 	var loggedIn = false;
 //on click function for submit new user button
@@ -73,11 +75,11 @@ $("#userSubmit").on("click", function(){
         console.log(errorMessage + errorCode);
     });
 console.log("logged in? " + loggedIn);
-console.log(uEmail);
+// console.log(uEmail);
 });//end of new user function
 //******************************************SIGN OUT FUNCTION*********************************************************
 //NEED TO CREATE A SIGNOUT PAGE ----create signout button on the other pages calling this function
-$("#signOutButton").on("click", function(){
+$(".signOutButton").on("click", function(){
 	firebase.auth().signOut().then(function() {
   	// Sign-out successful.
   	console.log("logged out");
@@ -103,11 +105,15 @@ if (user != null) {
                    // this value to authenticate with your backend server, if
                    // you have one. Use User.getToken() instead.
 console.log(user.email); 
-loggedIn = true;                  
+loggedIn = true;  
+ $("#LogOnPage").hide();
+ $("#travel-Book").show();          
 }
 else{
 	console.log("no one is signed in");
 loggedIn = false;
+   $("#travel-Book").hide();
+   $("#LogOnPage").show();
 }
 console.log("logged in Boolean? " + loggedIn);
 });
@@ -115,15 +121,118 @@ console.log("logged in Boolean? " + loggedIn);
 // *********************************************CODE FOR NEXT PAGES HERE*******************************************
 // ************************************************V**V**V**V**V**V**V********************************************
 
+//////////////////////////////////////DIVYAS JAVASCRIPT//////////////////////////////////////////////////////////
+// var defaultApp = firebase.initializeApp(config);
+//       console.log(defaultApp.name);  // "[DEFAULT]"
+//       //  create the database variable
+//       database = firebase.database();
+//       // var to access firebase storage API
+//       var defaultStorage = defaultApp.storage();
+//       // create a ref to the storage to perform API function
+//       var storageRef = defaultStorage.ref();
+//       var place = "";
+//       var localImageUrl = "";
+//       var nameData="";
+//       var commentdata = "";
+//       var comment = $("#comment" );
+//       var photos=$("#addPicBox");
+ pageNumber = 1;      
+ console.log(pageNumber)
+// //=================================================================================//
+// // adding a listener to the file upload button to start uploading files selected
+fileUploadButton.addEventListener('change', handleFileSelect, false);
+  // blow function handle uploading the files to the firebase storage
+  function handleFileSelect(e) {
+      //  extract the file handle
+      var file = e.target.files[0];
+      // Create the file metadata
+      var metadata = {  contentType: 'image/jpeg'};
+      // Upload file and metadata to the object 'image'
+      var uploadTask = storageRef.child('images/' + file.name  ).put(file, metadata);
+      // Listen for state changes, errors, and completion of the upload.
+    
+  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+    function(snapshot) {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        console.log('Upload is paused');
+      break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        console.log('Upload is running');
+      break;
+      }
+   
+    }, function(error) {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+      case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+      console.log('Upload error: ' +  error.code);
+      break;
+      case 'storage/canceled':
+      console.log('Upload error: ' +  error.code);
+      // User canceled the upload
+      break;
+       // ...
+      case 'storage/unknown':
+        console.log('Upload error: ' +  error.code);
+        // Unknown error occurred, inspect error.serverResponse
+      break;
+      }
+    }, function() {
+      // Upload completed successfully, now we can get the download URL
+      localImageUrl = uploadTask.snapshot.downloadURL;
+      console.log(comment);
+      database.ref().push({
+      imageUrl: localImageUrl,
 
-//USE THE loggedIn BOOLEAN VARRIABLE TO CHANGE HTML TO HOME PAGE
-//the variable user is set to the current user object - use that for logging aditional information - pictures etc. 
-//syntax is firebase.auth().currentUser.**whatever**
-//the current user is also saved in the user variable, user.**whatever** will also suffice
+      }); 
+     });
+}
 
-// if (loggedIn == true) {
-// 	$("#logOnPage").hide();
-//  $("#travel-Book").show();
-// }
+$(document).on("click", ".addData", function(event) {
+  console.log("comment click working");
+      event.preventDefault();
+      comment = $("#comment").val();
+      var newComments = this.parentNode.childNodes[1].childNodes[1].value;
+      ldbKey = $(this).attr("dbKey");
+      console.log(comment);
+      console.log(ldbKey);
+      database.ref(ldbKey).update({
+      comment: newComments,
+      });
+});
+
+database.ref().on("child_added", function(childSnapshot, prevChildKey){
+    var dbRefKey = childSnapshot.key;
+    // use above key as property of button so that we can get to it at time of update
+    var column = $('<div class="col-sm-3 col-md-">');
+    localImageUrl = childSnapshot.val().imageUrl;
+    var photoImage = $("<img >");
+    photoImage.addClass("pictures");
+    photoImage.attr("src", localImageUrl);
+    commentData = childSnapshot.val().comment;
+    var submitButton = $("<button>");
+    submitButton.addClass("addData");
+    submitButton.attr("dbKey", dbRefKey);
+    var commentForm = $('<form class="form-group"><label for="comment"></label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
+    $("#commentBox").append(commentData);
+    column.append(photoImage);
+    column.append(commentForm);
+    column.append(submitButton);
+    $("#playArea").append(column);
+    $(".addData").text("+ comment");
+ }, function(errorObject){
+   console.log(errorObject.code);
+ });
+$("#mapButton").on("click", function(){
+  pageNumber = 2;
+  console.log(pagenumber);
+});
+ ////////////////////////////////////////////END OF DIVYAS JAVASCRIPT/////////////////////////////////////////////////
 
 });
