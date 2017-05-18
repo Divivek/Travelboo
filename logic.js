@@ -8,12 +8,12 @@ $(document).ready(function() {
 //***********************************************FIREBASE CONFIG***********************************************************
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDQeAXWZpnytGGVtlyNngDlMoAf-PRiCKk",
-    authDomain: "userlogs-a1164.firebaseapp.com",
-    databaseURL: "https://userlogs-a1164.firebaseio.com",
-    projectId: "userlogs-a1164",
-    storageBucket: "userlogs-a1164.appspot.com",
-    messagingSenderId: "621543108481",
+    apiKey: "AIzaSyDLxSfYR3vHIz2dUq1W2OGEbWYo8nAXrgA",
+    authDomain: "travelprojecttwo.firebaseapp.com",
+    databaseURL: "https://travelprojecttwo.firebaseio.com",
+    projectId: "travelprojecttwo",
+    storageBucket: "travelprojecttwo.appspot.com",
+    messagingSenderId: "743588198275"
 }
 firebase.initializeApp(config);
 	var database = firebase.database();
