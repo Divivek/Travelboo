@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -31,7 +31,8 @@
 
     <!-- CSS -->
 <link href="css/new-age.css" rel="stylesheet">
-
+	<!-- my css -->
+	<link rel="stylesheet" href="assets/css/style.css">
 
 
 </head>
@@ -128,10 +129,117 @@
         <input type="file" id="fileUploadButton" name="file" /></center>
     </div>
 </div>
+<!-- ////////////////////////////////////CHIRAG's HTML////////////////////////////////////////////////////// -->
+	<div id="trip-details">
+
+		<div class="container">
+
+		<!-- first row -->
+			<div class="row">
+				
+				<div class="col-sm-12">
+
+					<div class="panel panel-default">
+
+		  				<div class="panel-heading ">Enter Location</div>
+
+	 					<div class="panel-body">
+
+							<form>
+								<div class="form-group">
+									<label for="location">Location:</label>
+									<input type="text" class="form-control" id="location">
+								</div>
+								
+								<button type="submit" class="btn btn-default" id="submit">Submit</button>
+
+							</form>
+
+	 					</div>
+					
+					</div>
+
+				</div>
+
+			</div>
+
+		<!-- row 2 -->
+			<div class="row">
+
+				<!-- column 1-->
+				<div class="col-sm-4">
+
+					<div class="panel panel-default">
+
+			  				<div class="panel-heading ">Map</div>
+
+		 					<div class="panel-body">
+
+								<div id="map"></div>
+
+								
+
+		 					</div>
+
+					</div>
+
+				</div>
+
+				<!-- column 2-->
+				<div class="col-sm-4">
+
+					<div class="panel panel-default">
+
+			  				<div class="panel-heading ">Comments</div>
+
+		 					<div class="panel-body">
+
+								<div id="comments"></div>
+
+								
+
+		 					</div>
+
+					</div>
+
+				</div>
+
+				<!-- column 2-->
+				<div class="col-sm-4">
+
+					<div class="panel panel-default">
+
+			  				<div class="panel-heading ">Locations</div>
+
+		 					<div class="panel-body">
+
+								<div id="locations"></div>
+
+								
+
+		 					</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
 
 
+	
+
+	<script type="text/javascript" src="assets/javascript/tripdetails.js"></script>
+
+	 <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI&callback=initMap">
+    </script>
 
 <script type="text/javascript" src= "logic.js" >
 </script>
 </body>
 </html>
+
