@@ -42,10 +42,11 @@ function initMap() {
     }
 
     map = new google.maps.Map(document.getElementById('map'), {
-      zoom:  5,
+      zoom: 5,
       center: location,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+     mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
     var marker = new google.maps.Marker({
       position: location,
       map: map
