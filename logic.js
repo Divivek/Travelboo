@@ -1,10 +1,12 @@
 
+var logEmail = "";  // Go
 $(document).ready(function() {
   console.log("JS ready!");
   //Hide the other pages
   $("#travel-Book").hide();
   //$("#chiragsPage").hide();
   var pagenumber = 0;
+
 //***********************************************FIREBASE CONFIG***********************************************************
   // Initialize Firebase
   var config = {
@@ -66,7 +68,7 @@ $("#userSubmit").on("click", function(){
     console.log("clicks working for login"); 
     //store password and email
      var logPassword = $("#userPasswordInput").val().trim();
-     var logEmail = $("#userGmailInput").val().trim();
+     logEmail = $("#userGmailInput").val().trim();
 //pass password and email to signin function
     firebase.auth().signInWithEmailAndPassword(logEmail, logPassword).catch(function(error){
         console.log("login error");
@@ -83,6 +85,7 @@ $(".signOutButton").on("click", function(){
 	firebase.auth().signOut().then(function() {
   	// Sign-out successful.
   	console.log("logged out");
+    $("#playArea").empty();
   	 loggedIn = false;
 	}).catch(function(error) {
   	// An error happened.
@@ -106,6 +109,7 @@ if (user != null) {
                    // you have one. Use User.getToken() instead.
 console.log(user.email); 
 loggedIn = true;  
+loadUserData();  // Now call Firebase database to load images for logged in user
  $("#LogOnPage").hide();
  $("#travel-Book").show();  
  $("#trip-details").hide();        
@@ -190,7 +194,8 @@ fileUploadButton.addEventListener('change', handleFileSelect, false);
       localImageUrl = uploadTask.snapshot.downloadURL;
       console.log(comment);
       database.ref().push({
-      imageUrl: localImageUrl,
+        userId : logEmail,
+        imageUrl: localImageUrl,
 
       }); 
      });
@@ -209,29 +214,45 @@ $(document).on("click", ".addData", function(event) {
       });
 });
 
+
+function loadUserData() {
+
+// var ref = database.ref();
+// ref.once("value")
+//   .then(function(snapshot) {
+//     var hasName = snapshot.hasChild("name"); // true
+//     var hasAge = snapshot.hasChild("age"); // false
+//   });
+
 database.ref().on("child_added", function(childSnapshot, prevChildKey){
-    var dbRefKey = childSnapshot.key;
-    // use above key as property of button so that we can get to it at time of update
-    var column = $('<div class="col-sm-3 col-md-">');
-    localImageUrl = childSnapshot.val().imageUrl;
-    var photoImage = $("<img >");
-    photoImage.addClass("pictures");
-    photoImage.attr("src", localImageUrl);
-    commentData = childSnapshot.val().comment;
-    var submitButton = $("<button>");
-    submitButton.addClass("addData");
-    submitButton.attr("dbKey", dbRefKey);
-    var commentForm = $('<form class="form-group"><label for="comment"></label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
-    $("#commentBox").append(commentData);
-    column.append(photoImage);
-    column.append(commentForm);
-    column.append(submitButton);
-    $("#playArea").append(column);
-    $(".addData").text("+ comment");
-    photoImage.click(pictureClick);
+    var localUser = childSnapshot.val().userId;
+    if (localUser == logEmail ) 
+    {
+        var dbRefKey = childSnapshot.key;
+        // use above key as property of button so that we can get to it at time of update
+        var column = $('<div class="col-sm-3 col-md-">');
+        localImageUrl = childSnapshot.val().imageUrl;
+
+        var photoImage = $("<img >");
+        photoImage.addClass("pictures");
+        photoImage.attr("src", localImageUrl);
+        commentData = childSnapshot.val().comment;
+        var submitButton = $("<button>");
+        submitButton.addClass("addData");
+        submitButton.attr("dbKey", dbRefKey);
+        var commentForm = $('<form class="form-group"><label for="comment"></label><textarea class="form-control" rows="5" id="comment">' + commentData + '</textarea> </form>')
+        $("#commentBox").append(commentData);
+        column.append(photoImage);
+        column.append(commentForm);
+        column.append(submitButton);
+        $("#playArea").append(column);
+        $(".addData").text("+ comment");
+        photoImage.click(pictureClick);
+      } // END IF of USER ID 
  }, function(errorObject){
    console.log(errorObject.code);
  });
+};
 
 function pictureClick(){
      console.log("hidden");
