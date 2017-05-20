@@ -255,7 +255,7 @@ function pictureClick(){
 ////////////////////////////////////////////CHIRAGS JAVASCRIPT/////////////////////////////////////////
 var googleAPIKey="AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI";
 
-var demoPic="https://firebasestorage.googleapis.com/v0/b/travelprojecttwo.appspot.com/o/images%2Fcrystal1.jpg?alt=media&token=9c310129-8475-495a-84f0-8456c27dd180";
+var demoPic="https://firebasestorage.googleapis.com/v0/b/travelprojecttwo.appspot.com/o/images%2Fus-quarter-front.jpg?alt=media&token=0b44d41c-4cd1-41ef-bcfc-5b4bea0e9f39";
 
 var locations = []; 
 var locationCoordinates = [];
@@ -390,6 +390,9 @@ function backClick(){
    $("#back").on("click",function(){
    $("#travel-Book").hide();
    $("#trip-details").show();
+       locations = [];
+     locationCoordinates = [];
+      tempLocs = [];
 });
 
 $("#back-details").click(backClick) ;
@@ -407,11 +410,7 @@ function getLocations(){
     //   longitude: "-74.0059413"
     // }
     // ];
-
-
-  }
-else{
-    console.log("tempLocs");
+console.log("tempLocs");
         locations = ["New York City, NY", "Washington, DC", "Boston, MA"]; 
       locationCoordinates = [];
       tempLocs = [
@@ -431,5 +430,10 @@ else{
         longitude: "-71.0588801"
       },
 ];
+
+  }
+else{
+    //to be added
+
 }
 }
