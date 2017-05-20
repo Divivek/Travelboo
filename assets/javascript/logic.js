@@ -336,7 +336,7 @@ $("#submit").click(function(){
 
         database.ref(ldbKey).update({
         comment: newComments,
-        locations: locations
+        // locations: locations
         });
        // updateMap( response.results[0].geometry.location.lat, response.results[0].geometry.location.lng , 7);
       drawMap();
