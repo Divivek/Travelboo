@@ -1,128 +1,210 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--   Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <!--  FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+ <!--  Bootstrap.js -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <head>
-	<title>Trip Details Landing Page</title>
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-	<!-- my css -->
-	<link rel="stylesheet" href="assets/css/style.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+    <title>travel app - working title </title>
+
+    <!-- Bootstrap Core CSS -->
+<!--     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+    <!-- CSS -->
+<link href="assets/css/new-age.css" rel="stylesheet">
+<link href="assets/css/album.css" rel="stylesheet">
+  <!-- my css -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+
 </head>
-<body>
+<div id="LogOnPage">
+<body id="page-top">
+    <header>
+        <div class="container">
+        <button class="signOutButton btn btn-danger">Sign Out</button>
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="header-content">
+                        <div class="header-content-inner">
+                            <h1>TRAVEL APP WORKING TITLE</h1>
+                            <h2>log and track your vacations, share stories and images</h2>
+                            <div class="col-md-5"> Gmail Account</div> 
+                             <input type="text" id="userGmailInput" class="form-control" placeholder="Gmail Account">    
+                            <div class="col-md-5">Password</div> 
+                            <input type="password" id="userPasswordInput" class="form-control" placeholder="Password">
+                            <button id="userSubmit" class="btn btn-default" type="button">Submit</button> 
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </header>
 
-	<div id="trip-details">
+    <section id="title" class="download bg-primary text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="section-heading">Join up and start exploring!</h2>
 
-		<div class="container">
+    <div> Gmail Account</div> 
+    <input type="text" id="newUserGmailInput" class="form-control" placeholder="Gmail Account"> 
+    <div> Create password</div> 
+    <input type="password" id="newUserPasswordInput" class="form-control" placeholder="Password must be 6 char">
+    <button id="newUserSubmit" class="btn btn-default" type="button">Submit New User</button> 
 
-		<!-- first row -->
-			<div class="row">
-				
-				<div class="col-sm-12">
+                </div>
+            </div>
+        </div>
+    </section>
 
-					<div class="panel panel-default">
+    <footer>
+        <div class="container">
+            <p>Copyright TDC</p>
+            <ul class="list-inline">
+                <li>
+                    <p>Rutgers coding Bootcamp 2017</p>
+                </li>
+                <li>
+                   <p>template used: Newage bootstrap template</p>
+                </li>
+            </ul>
+        </div>
+    </footer>
 
-		  				<div class="panel-heading ">Enter Location</div>
+<!-- error message popup window -->
+  <div class="modal fade" id="errorModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">email or Password Error</h4>
+        </div>
+        <div class="modal-body">
+          <p>Email must be a Gmail account for full functionality.</p><br>
+          <p>Passwords must be 7 characters or more.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> <!-- end of log on page -->
+<!-- ////////////////////////////////////DIVYAS HTML////////////////////////////////////////////////////// -->
+<div  id="travel-Book">
+<link rel="stylesheet" href="assets/css/style.css">
+    <nav class="navbar navbar-default">
+  <!--   <button class="btn btn-default" id="mapButton">Where Have You Been?</button> -->
+      <div class="container-fluid">
+      <button class="signOutButton", class="btn btn-danger">Sign Out</button>
+      </div>
+    </nav>
 
-	 					<div class="panel-body">
+    <div class="container">
+      <div class="row" id="playArea"> 
+      </div>
+    </div>
 
-							<form>
-								<div class="form-group">
-									<label for="location">Location:</label>
-									<input type="text" class="form-control" id="location">
-								</div>
-								
-								<button type="submit" class="btn btn-default" id="submit">Submit</button>
+    <div>
+       <center> <img src="https://www.gstatic.com/images/icons/material/system/1x/add_a_photo_black_24dp.png"     width="24"/>
+        <input type="file" id="fileUploadButton" name="file" /></center>
+    </div>
+</div>
+<!-- ////////////////////////////////////CHIRAG's HTML////////////////////////////////////////////////////// -->
+  <div id="trip-details">
 
-							</form>
+    <div class="container">
 
-	 					</div>
-					
-					</div>
+    <!-- first row -->
+      <div class="row">
+        
+        <div class="col-sm-12">
 
-				</div>
+          <div class="panel panel-default">
 
-			</div>
+              <div class="panel-heading ">Enter Location</div>
 
-		<!-- row 2 -->
-			<div class="row">
+            <div class="panel-body">
 
-				<!-- column 1-->
-				<div class="col-sm-4">
+              <form>
+                <div class="form-group">
+                  <label for="location">Location:</label>
+                  <input type="text" class="form-control" id="location">
+                </div>
+                
+                <button type="submit" class="btn btn-default" id="submit">Submit</button>
 
-					<div class="panel panel-default">
+              </form>
 
-			  				<div class="panel-heading ">Map</div>
+            </div>
+          
+          </div>
 
-		 					<div class="panel-body">
+        </div>
 
-								<div id="map"></div>
+      </div>
 
-								
+    <!-- row 2 -->
+      <div class="row">
 
-		 					</div>
+        <!-- column 1-->
+        <div class="col-sm-12">
 
-					</div>
+          <div class="panel panel-default">
 
-				</div>
+                <div class="panel-heading "> Your Map</div>
 
-				<!-- column 2-->
-				<div class="col-sm-4">
+              <div class="panel-body">
 
-					<div class="panel panel-default">
+                <div id="map"></div>
 
-			  				<div class="panel-heading ">Comments</div>
+                
 
-		 					<div class="panel-body">
+              </div>
 
-								<div id="comments"></div>
+          </div>
 
-								
+        </div>
 
-		 					</div>
-
-					</div>
-
-				</div>
-
-				<!-- column 2-->
-				<div class="col-sm-4">
-
-					<div class="panel panel-default">
-
-			  				<div class="panel-heading ">Locations</div>
-
-		 					<div class="panel-body">
-
-								<div id="locations"></div>
-
-								
-
-		 					</div>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
+      <div class="row">
+        <button class="btn btn-default" id="back-details">Back</button>
+      </div>
 
 
-	
-			
-	<!-- jQuery -->
-	<script src="https://code.jquery.com/jquery.js"></script>
+      </div>
 
-	<!-- Link to Moment.js should go here -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js" ></script>
+    </div>
 
-	<!-- Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
-	<script type="text/javascript" src="assets/javascript/tripdetails.js"></script>
+  </div>
 
-	 <script async defer
+
+  
+
+
+
+<script type="text/javascript" src= "logic.js" >
+</script>
+
+   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI&callback=initMap">
     </script>
 </body>
