@@ -1,5 +1,6 @@
 
 var logEmail = "";  // Go
+var clickedPic = "";
 
 $(document).ready(function() {
   console.log("JS ready!");
@@ -134,7 +135,7 @@ var storageRef = defaultStorage.ref();    // create a ref to the storage to perf
 var place = "";
 var localImageUrl = "";
 var commentdata = "";
-var debug = false;
+var debug = true;
 
 function logwrite(message){
   if (debug) { console.log(message); }
@@ -235,7 +236,12 @@ function pictureClick(){
    logwrite("next page shown");
    $("#travel-Book").hide();
    $("#trip-details").show();
+ //  logwrite("clickPic");
+   clickedPic = $(this).attr("src");
+ //  logwrite(clickedPic);
+   drawMap();
  }
+
    $("#back").on("click",function(){
    $("#travel-Book").show();
    $("#trip-details").hide();
@@ -249,36 +255,11 @@ function pictureClick(){
 ////////////////////////////////////////////CHIRAGS JAVASCRIPT/////////////////////////////////////////
 var googleAPIKey="AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI";
 
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDNoZFYABiy-Dagp1LvMG9KbsOH0yleoXI",
-    authDomain: "travel-boogaloo-dev.firebaseapp.com",
-    databaseURL: "https://travel-boogaloo-dev.firebaseio.com",
-    projectId: "travel-boogaloo-dev",
-    storageBucket: "travel-boogaloo-dev.appspot.com",
-    messagingSenderId: "756738451586"
-  };
-  // firebase.initializeApp(config);
+var demoPic="https://firebasestorage.googleapis.com/v0/b/travelprojecttwo.appspot.com/o/images%2Fcrystal1.jpg?alt=media&token=9c310129-8475-495a-84f0-8456c27dd180";
 
-var locations = ["New York City, NY", "Washington, DC", "Boston, MA"]; 
+var locations = []; 
 var locationCoordinates = [];
-var tempLocs = [
-  { 
-    location: "New York City, NY", 
-    latitude: "40.7127837", 
-    longitude: "-74.0059413"
-  },
-  { 
-    location: "Washington, DC", 
-    latitude: "38.9071923", 
-    longitude: "-77.0368707"
-  },
-  { 
-    location: "Boston, MA", 
-    latitude: "42.3600825", 
-    longitude: "-71.0588801"
-  },
-];
+var tempLocs = [];
 var map;
 
 function initMap() {
@@ -295,12 +276,12 @@ function initMap() {
      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
+    // var marker = new google.maps.Marker({
+    //   position: location,
+    //   map: map
+    // });
 
-    drawMap(); 
+   // drawMap(); 
   }
 
 function updateMap(lat, long, zoom) {
@@ -325,7 +306,7 @@ $("#submit").click(function(){
   event.preventDefault();
   
   var location = $("#location").val().trim();
-
+    $("#location").val("");
 
   var queryURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
    + location + "&key=" + googleAPIKey;
@@ -336,9 +317,14 @@ $("#submit").click(function(){
     .done(function(response){
 
         //console.log(response);
-
-        updateMap( response.results[0].geometry.location.lat, response.results[0].geometry.location.lng , 7);
-
+        locations.push(location)
+        tempLocs.push({
+          name: location,
+          latitude: response.results[0].geometry.location.lat,
+          longitude: response.results[0].geometry.location.lng
+        });
+       // updateMap( response.results[0].geometry.location.lat, response.results[0].geometry.location.lng , 7);
+      drawMap();
     })
 
 });
@@ -351,6 +337,8 @@ function drawMap(){
     
   //   console.log(tempLocs[i]);
   // }
+  getLocations();
+ // console.log("clickedPic", clickedPic);
 
    var infowindow = new google.maps.InfoWindow();
 
@@ -391,4 +379,57 @@ function getLongitudeAndLatitude(place){
 
     })
 
+}
+
+function backClick(){
+   // logwrite("hidden");
+   // logwrite("next page shown");
+   $("#travel-Book").show();
+   $("#trip-details").hide();
+ }
+   $("#back").on("click",function(){
+   $("#travel-Book").hide();
+   $("#trip-details").show();
+});
+
+$("#back-details").click(backClick) ;
+
+function getLocations(){
+
+  if(demoPic == clickedPic) {
+ //   console.log("demoPic choosen");
+    // locations = ["New York City, NY"]; 
+    // locationCoordinates = [];
+    // tempLocs = [
+    // { 
+    //   location: "New York City, NY", 
+    //   latitude: "40.7127837", 
+    //   longitude: "-74.0059413"
+    // }
+    // ];
+
+
+  }
+else{
+    console.log("tempLocs");
+        locations = ["New York City, NY", "Washington, DC", "Boston, MA"]; 
+      locationCoordinates = [];
+      tempLocs = [
+      { 
+        location: "New York City, NY", 
+        latitude: "40.7127837", 
+        longitude: "-74.0059413"
+      },
+      { 
+        location: "Washington, DC", 
+        latitude: "38.9071923", 
+        longitude: "-77.0368707"
+      },
+      { 
+        location: "Boston, MA", 
+        latitude: "42.3600825", 
+        longitude: "-71.0588801"
+      },
+];
+}
 }
